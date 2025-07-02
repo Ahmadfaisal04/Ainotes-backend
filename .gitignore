@@ -1,0 +1,31 @@
+# Go build
+bin/
+*.exe
+*.test
+*.out
+
+# Dependency directories (vendor/)
+vendor/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+
+# Logs
+*.log
+
+# Coverage
+coverage.out
+
+# Module cache
+pkg/
