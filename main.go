@@ -3,6 +3,7 @@ package main
 import (
 	"Ainotes/config"
 	"Ainotes/controller"
+	"Ainotes/middleware"
 	"Ainotes/repository"
 	"Ainotes/service"
 
@@ -39,10 +40,11 @@ func main() {
 	// Set up router
 	r := gin.Default()
 
-	// Define routes
-	api := r.Group("/api")
+	// Apply Supabase Auth middleware to all /api routes
+	api := r.Group("/api", middleware.SupabaseAuthMiddleware())
 	{
 		users := api.Group("/users")
+
 		users.GET("/", userController.FindAll)
 		users.GET("/:id", userController.FindByID)
 		users.POST("/", userController.Create)
@@ -50,6 +52,7 @@ func main() {
 		users.DELETE("/:id", userController.Delete)
 
 		resources := api.Group("/resources")
+
 		resources.GET("/", resourceController.FindAll)
 		resources.GET("/:id", resourceController.FindByID)
 		resources.POST("/", resourceController.Create)
@@ -57,6 +60,7 @@ func main() {
 		resources.DELETE("/:id", resourceController.Delete)
 
 		notes := api.Group("/notes")
+
 		notes.GET("/", noteController.FindAll)
 		notes.GET("/:id", noteController.FindByID)
 		notes.POST("/", noteController.Create)
@@ -64,6 +68,7 @@ func main() {
 		notes.DELETE("/:id", noteController.Delete)
 
 		quizzes := api.Group("/quizzes")
+
 		quizzes.GET("/", quizController.FindAll)
 		quizzes.GET("/:id", quizController.FindByID)
 		quizzes.POST("/", quizController.Create)
@@ -71,6 +76,7 @@ func main() {
 		quizzes.DELETE("/:id", quizController.Delete)
 
 		flashcards := api.Group("/flashcards")
+
 		flashcards.GET("/", flashcardController.FindAll)
 		flashcards.GET("/:id", flashcardController.FindByID)
 		flashcards.POST("/", flashcardController.Create)
